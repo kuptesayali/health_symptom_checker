@@ -1,14 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Health Symptom Checker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Health Symptom Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        p {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        input[type="text"] {
+            width: 90%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+    </style>
 </head>
 <body>
-    <h1>AI Health Symptom Checker</h1>
-    <form action="/check" method="post">
-        <label for="symptom">Enter your symptom:</label>
-        <input type="text" id="symptom" name="symptom" required placeholder="Enter symptom(s)">
-        <button type="submit">Check</button>
-    </form>
+    <div class="container">
+        <h1>AI Symptom Checker</h1>
+        <p>Enter your symptom (e.g., <em>headache</em>, <em>fever</em>, <em>stomach pain</em>)</p>
+        
+        <form action="/check" method="POST">
+            <input type="text" name="symptom" placeholder="Type your symptom..." required>
+            <br>
+            <button type="submit">Check</button>
+        </form>
+    </div>
 </body>
 </html>

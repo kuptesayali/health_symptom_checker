@@ -1,27 +1,35 @@
-# src/matcher.py
+import pandas as pd
 
-# Simple dictionary of conditions and their symptoms
-conditions = {
-    "flu": ["fever", "cough", "body ache", "fatigue"],
-    "common cold": ["sneezing", "runny nose", "cough", "sore throat"],
-    "covid-19": ["fever", "cough", "loss of taste", "loss of smell", "fatigue"],
-    "migraine": ["headache", "nausea", "sensitivity to light"],
-    "allergy": ["sneezing", "itchy eyes", "runny nose"],
-}
+# Load datasets
+dataset = pd.read_csv("data/symptom_dataset.csv")
+canonical = pd.read_csv("data/symptom_canonical_list.csv")
+synonyms = pd.read_csv("data/symptom_synonyms.csv")
 
-def get_matches(user_input, top_k=3):
-    """
-    Compare user input symptoms with known conditions
-    and return top matches.
-    """
-    input_symptoms = user_input.lower().split()
-    scores = []
+# Build synonym dictionary
+synonym_map = dict(zip(synonyms["symptom_synonym"], synonyms["canonical_symptom"]))
 
-    for condition, symptoms in conditions.items():
-        score = sum(1 for word in input_symptoms if word in symptoms)
-        if score > 0:
-            scores.append((condition, score))
 
-    # Sort by score (descending)
-    scores.sort(key=lambda x: x[1], reverse=True)
-    return scores[:top_k]
+
+def normalize_symptom(symptom: str) -> str:
+    """Convert user input into canonical symptom token"""
+    s = symptom.strip().lower()
+    return synonym_map.get(s, s)  # map to canonical if synonym exists
+
+
+def match_symptoms(user_inputs: list[str]) -> list[dict]:
+    """Match user symptoms to possible conditions"""
+    normalized = [normalize_symptom(s) for s in user_inputs]
+
+    results = []
+    for _, row in dataset.iterrows():
+        condition_symptoms = row["symptoms"].split(";")
+        overlap = set(normalized) & set(condition_symptoms)
+        if overlap:
+            results.append({
+                "condition": row["condition_name"],
+                "severity": row["severity_flag"],
+                "advice": row["advice"],
+                "doctor": row["when_to_see_doctor"],
+                "matched": list(overlap)
+            })
+    return results

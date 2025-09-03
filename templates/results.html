@@ -1,23 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Symptom Results</title>
+    <title>Results - Health Symptom Checker</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        h1 { color: #333; }
-        ul { list-style-type: none; padding: 0; }
-        li { background: #f2f2f2; margin: 5px 0; padding: 10px; border-radius: 5px; }
-        a { display: inline-block; margin-top: 20px; text-decoration: none; color: #fff; background: #007BFF; padding: 10px 15px; border-radius: 5px; }
-        a:hover { background: #0056b3; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+        .condition {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2980b9;
+        }
+        .severity {
+            font-weight: bold;
+            color: #e67e22;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background: #2980b9;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+        }
+        .back-link:hover {
+            background: #1f5f8a;
+        }
     </style>
 </head>
 <body>
     <h1>Top Matches for "{{ symptom }}"</h1>
-    <ul>
-        {% for disease, score in results %}
-            <li>{{ disease }} (score: {{ score }})</li>
+
+    {% if results %}
+        {% for r in results %}
+            <div class="card">
+                <div class="condition">{{ r.condition }}</div>
+                <p class="severity">Severity: {{ r.severity }}</p>
+                <p><strong>Advice:</strong> {{ r.advice }}</p>
+                <p><strong>When to see doctor:</strong> {{ r.doctor }}</p>
+                <p><strong>Matched Symptoms:</strong> {{ r.matched }}</p>
+            </div>
         {% endfor %}
-    </ul>
-    <a href="/">Check Another Symptom</a>
+    {% else %}
+        <p>No matches found. Try a different symptom.</p>
+    {% endif %}
+
+    <a class="back-link" href="/">Check Another Symptom</a>
 </body>
 </html>

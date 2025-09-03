@@ -12,8 +12,13 @@ def index():
 # Check symptom route
 @app.route('/check', methods=['POST'])
 def check():
+    # Get the user input
     symptom = request.form['symptom']
-    results = matcher.get_matches(symptom, top_k=5)
+
+    # Call match_symptoms (it expects a list)
+    results = matcher.match_symptoms([symptom])
+
+    # Pass results to the template
     return render_template('results.html', symptom=symptom, results=results)
 
 # Run the app
