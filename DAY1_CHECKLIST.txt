@@ -1,0 +1,9 @@
+Day 1 Checklist
+===============
+[ ] Install Python 3.9+
+[ ] Create project folder and virtual environment
+[ ] Activate venv and install requirements
+[ ] Place the `data/` files in your project
+[ ] Open the CSV to familiarize yourself with canonical symptom tokens
+[ ] (Optional) Add 5–10 more condition rows relevant to your region
+[ ] Commit files to Git (optional)

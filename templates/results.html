@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Symptom Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { color: #333; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #f2f2f2; margin: 5px 0; padding: 10px; border-radius: 5px; }
+        a { display: inline-block; margin-top: 20px; text-decoration: none; color: #fff; background: #007BFF; padding: 10px 15px; border-radius: 5px; }
+        a:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Top Matches for "{{ symptom }}"</h1>
+    <ul>
+        {% for disease, score in results %}
+            <li>{{ disease }} (score: {{ score }})</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Check Another Symptom</a>
+</body>
+</html>
