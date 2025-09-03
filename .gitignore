@@ -1,1 +1,37 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.dll
+
+# --- Virtual Environments ---
 .venv/
+venv/
+env/
+
+# --- Packages & Caches ---
+*.egg-info/
+.eggs/
+.pytest_cache/
+.cache/
+
+# --- Logs & Coverage ---
+*.log
+coverage/
+htmlcov/
+.coverage*
+
+# --- IDE / Editor ---
+.vscode/
+.idea/
+*.code-workspace
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+
+# --- Flask instance dir (if used) ---
+instance/
+
